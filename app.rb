@@ -74,7 +74,7 @@ post "/create_list" do
     twitter_access_token = params[:access_token]
     twitter_access_token_secret = params[:secret]
 
-    raise "1" if twitter_access_token.nil? or twitter_access_token_secret.nil?
+    raise "1" if twitter_access_token.empty? or twitter_access_token_secret.empty?
     raise "2" if !!(screen_name =~ /[^\w]/)
 
     # Generate OAuth access token
