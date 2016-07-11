@@ -37,7 +37,9 @@ get "/auth/twitter/callback" do
 end
 
 get "/auth/failure" do
-  @error = "Could not authenticate you with Twitter."
+  @error = "<h3>Could not authenticate you with Twitter</h3>"
+  @code = 1
+  
   erb :index
 end
 
@@ -47,9 +49,12 @@ get "/" do
 end
 
 get "/add" do
+  @code = nil
+
   case params[:error_code]
   when "1"
     @error = "<h3>Could not authenticate you with Twitter</h3>"
+    @code = 1
   when "2"
     @error = "<h3>Could not find that Twitter user</h3> <p>Please make sure you’ve typed their username correctly. Twitter usernames can only contain letters, numbers, and underscores.</p>"
   when "3"

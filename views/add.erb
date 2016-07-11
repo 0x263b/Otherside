@@ -3,7 +3,7 @@
 	<%= @error %>
 </div>
 <% end %>
-<% if params[:error_code] == "1" %>
+<% if @code == 1 %>
 <div id="form">
 	<form>
 		<a class="sign-in" href="/auth/twitter"><img src="/sign-in.png" alt="Sign in with Twitter" /></a>
