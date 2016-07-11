@@ -3,6 +3,13 @@
 	<%= @error %>
 </div>
 <% end %>
+<% if params[:error_code] == "1" %>
+<div id="form">
+	<form>
+		<a class="sign-in" href="/auth/twitter"><img src="/sign-in.png" alt="Sign in with Twitter" /></a>
+	</form>
+</div>
+<% else %>
 <div id="form">
 	<form id="create_list" action="/create_list" method="post">
 		<input type="hidden" name="access_token" value="<%= @access_token %>">
@@ -24,13 +31,7 @@
 		Generating list. Please wait, this can take up to a minute
 	</div>
 </div>
-
-<ul>
-	<div>Limitations</div>
-	<li>Lists can only contain up to 5,000 accounts.</li>
-	<li>Private accounts you don’t follow will be skipped.</li>
-	<li>Twitter imposes a limit on how often third party services can access your account. You may need to wait 15 minutes between creating lists.</li>
-</ul>
+<% end %>
 <script>
 document.getElementById("create_list").addEventListener("submit", function(){
 	document.getElementById("submit").disabled = true

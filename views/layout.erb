@@ -99,6 +99,10 @@ footer {
 		margin: 0;
 		padding: 1em 1.25em;
 	}
+	.sign-in {
+		display: block;
+		text-align: center;
+	}
 	.input {
 		display: -webkit-box;
 		display: -ms-flexbox;
@@ -206,6 +210,12 @@ ul {
 		</header>
 		<main>
 			<%= yield %>
+			<ul>
+				<div>Limitations</div>
+				<li>Lists can only contain up to 5,000 accounts.</li>
+				<li>Private accounts you don’t follow will be skipped.</li>
+				<li>Twitter imposes a limit on how often third party services can access your account. You may need to wait 15 minutes between creating lists.</li>
+			</ul>
 		</main>
 		<footer>
 			<a href="https://github.com/0x263b/otherside">Source</a>
