@@ -1,0 +1,39 @@
+<% if !@error.nil? %>
+<div id="error">
+	<%= @error %>
+</div>
+<% end %>
+<div id="form">
+	<form id="create_list" action="/create_list" method="post">
+		<input type="hidden" name="access_token" value="<%= @access_token %>">
+		<input type="hidden" name="secret" value="<%= @secret %>">
+
+		<div class="row">
+			<div class="label">Twitter Username</div>
+			<div class="input">
+				<div>
+					<input type="text" id="screen_name" name="screen_name" 
+					placeholder="<%= ["Jack", "biz", "ev", "dickc", "maxvoltar", "ollymoss", "elonmusk", "ElectricObjects", "daniel_rehn"].sample %>"
+					required pattern="\w{0,15}" title="Can contain letters, numbers, and underscores"></div>
+				<div>
+					<button id="submit" type="submit">Create List</button></div>
+			</div>
+		</div>
+	</form>
+	<div class="loading" id="progress">
+		Generating list. Please wait, this can take up to a minute
+	</div>
+</div>
+
+<ul>
+	<div>Limitations</div>
+	<li>Lists can only contain up to 5,000 accounts.</li>
+	<li>Private accounts you don’t follow will be skipped.</li>
+	<li>Twitter imposes a limit on how often third party services can access your account. You may need to wait 15 minutes between creating lists.</li>
+</ul>
+<script>
+document.getElementById("create_list").addEventListener("submit", function(){
+	document.getElementById("submit").disabled = true
+	document.getElementById("form").style.maxHeight = "200px"
+})
+</script>

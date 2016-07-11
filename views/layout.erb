@@ -1,0 +1,215 @@
+<html lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Otherside for Twitter</title>
+	<meta name="theme-color" content="#55acee">
+
+	<meta name="description" content="Create a Twitter List of the accounts someone follows, and see Twitter from their perspective.">
+
+	<meta property="og:type"         content="website" />
+	<meta property="og:title"        content="Otherside for Twitter" />
+	<meta property="og:description"  content="Create a Twitter List of the accounts someone follows, and see Twitter from their perspective.">
+	<meta property="og:url"          content="https://otherside.site/" />
+
+	<meta name="twitter:card"        content="summary" />
+	<meta name="twitter:title"       content="Otherside for Twitter" />
+	<meta name="twitter:description" content="Create a Twitter List of the accounts someone follows, and see Twitter from their perspective." />
+	<meta name="twitter:url"         content="https://otherside.site" />
+<style>
+* {
+	box-sizing: border-box;
+	-webkit-font-smoothing: antialiased;
+}
+body {
+	font: normal 16px/1.4 -apple-system, BlinkMacSystemFont, "Roboto", "Helvetica Neue", Arial, sans-serif;
+	background-color: #55acee;
+	margin: 0;
+	padding: 20px;
+}
+body,a {
+	color: white;
+}
+a:hover {
+	text-decoration: none;
+}
+header {
+	margin-bottom: 50px;
+}
+	h1 {
+		font-size: 3em;
+		font-weight: 300;
+		margin: 30px 0 0;
+	}
+		h1 a {
+			text-decoration: none;
+		}
+	header p {
+		font-size: 18px;
+		margin: 10px 0 0;
+	}
+
+#flex {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	    -ms-flex-direction: column;
+	        flex-direction: column;
+	max-width: 500px;
+	margin: auto;
+	height: 100%;
+}
+main {
+	display: block;
+	-webkit-box-flex: 1;
+	    -ms-flex-positive: 1;
+	        flex-grow: 1;
+}
+footer {
+	font-size: 0.9em;
+}
+#error {
+	color: #a94442;
+	background-color: #f2dede;
+	padding: 5px 15px;
+	margin-bottom: 20px;
+    box-shadow: 0px 1px 3px rgba(0,0,0,0.2);
+    border-radius: 4px;
+}
+	h3 {
+		font-size: 18px;
+	}
+	h3,#error p {
+		margin: 10px 0;
+	}
+#form {
+	background-color: white;
+	color: #292f33;
+	border-radius: 4px;
+	box-shadow: 0px 1px 3px rgba(0,0,0,0.2);
+	max-height: 102px;
+    -webkit-transition: max-height 0.2s ease-in-out;
+    transition: max-height 0.2s ease-in-out;
+    overflow: hidden;
+}
+	form {
+		margin: 0;
+		padding: 1em 1.25em;
+	}
+	.input {
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-box-orient: horizontal;
+		-webkit-box-direction: normal;
+		    -ms-flex-direction: row;
+		        flex-direction: row;
+		width: 100%;
+	}
+		.input div:first-child {
+			-webkit-box-flex: 1;
+			    -ms-flex-positive: 1;
+			        flex-grow: 1;
+			margin-right: 10px;
+		}
+		.input div:last-child {
+			-ms-flex-negative: 0;
+			    flex-shrink: 0;
+		}
+#screen_name {
+	padding: 6px 12px;
+	font-size: 16px;
+	line-height: 1.5;
+	color: #292f33;
+	background-color: #fff;
+	border: 1px solid #ccd6dd;
+	border-radius: 4px;
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.2);
+	width: 100%;
+	vertical-align: middle;
+	margin-top: 10px;
+}
+	#screen_name:focus {
+		outline: 0;
+		border-color: #55acee;
+	}
+#submit {
+	-webkit-appearance: button;
+	cursor: pointer;
+	color: #fff;
+	display: inline-block;
+	padding: 6px 12px;
+	font-size: 16px;
+	font-weight: bold;
+	line-height: 1.5;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	    touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+	    -ms-user-select: none;
+	        user-select: none;
+	border-radius: 4px;
+	background-color: #1da1f2;
+    background-image: -webkit-linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0.05));
+    background-image: linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0.05));
+	border: 1px solid #3b88c3;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.15);
+    vertical-align: middle;
+    margin-top: 10px;
+}
+	#submit:disabled {
+		background-color: #ddd;
+		border-color: #bbb;
+	}
+#progress {
+	color: #292f33;
+	background-color: #d9edf7;
+	padding: 10px 15px;
+	border-radius: 0 0 4px 4px;
+    border-top: 1px solid #ccd6dd;
+}
+	.loading:after {
+		overflow: hidden;
+		display: inline-block;
+		vertical-align: bottom;   
+		-webkit-animation: ellipsis steps(4,end) 900ms infinite;   
+		        animation: ellipsis steps(4,end) 900ms infinite;
+		content: "\2026"; 
+		width: 0px;
+		margin-left: -3px;
+	}
+	@-webkit-keyframes ellipsis {
+		to { width: 1.25em; }
+	}
+	@keyframes ellipsis {
+		to { width: 1.25em; }
+	}
+ul {
+	margin: 30px 0;
+	padding: 0;
+}
+	li {
+		margin: 10px 1em;
+	}
+</style>
+</head>
+<body>
+	<div id="flex">
+		<header>
+			<h1><a href="/">Otherside for Twitter</a></h1>
+			<p>Otherside creates a <a href="https://twitter.com/lists">Twitter List</a> of the accounts someone follows, letting you to see Twitter from their perspective.</p>
+		</header>
+		<main>
+			<%= yield %>
+		</main>
+		<footer>
+			<a href="https://github.com/0x263b/otherside">Source</a>
+		</footer>
+	</div>
+</body>
+</html>
