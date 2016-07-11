@@ -6,9 +6,11 @@ require 'oauth'
 require 'omniauth-twitter'
 
 configure do
-  set :server, :puma
-  set :sessions, true
-  set :environment, :production
+  set :sessions, 
+    key: "otherside",
+    path: "/",
+    expire_after: 14400,
+    secret: "you should probably change this"
 
   use OmniAuth::Builder do
     provider :twitter, settings.twitter_consumer_key, settings.twitter_consumer_secret
@@ -44,6 +46,10 @@ get "/auth/failure" do
 end
 
 get "/" do
+  if !session[:token].nil? and !session[:secret].nil?
+    redirect "/add"
+  end
+
   @error = nil
   erb :index
 end
@@ -86,23 +92,23 @@ post "/create_list" do
     access_token = prepare_access_token(twitter_access_token, twitter_access_token_secret)
     
     # Get following list for `screen_name`
-    request = access_token.request(:get, "https://api.twitter.com/1.1/friends/ids.json?cursor=-1&screen_name=#{screen_name}&count=5000")
-    raise "3" if request.code != "200"
+    req = access_token.request(:get, "https://api.twitter.com/1.1/friends/ids.json?cursor=-1&screen_name=#{screen_name}&count=5000")
+    raise "3" if req.code != "200"
 
-    response = JSON.parse(request.body, {:symbolize_names => true})
+    response = JSON.parse(req.body, {:symbolize_names => true})
     ids = response[:ids]
     total = ids.length
 
     # Get our lists
-    request = access_token.request(:get, "https://api.twitter.com/1.1/lists/list.json")
-    response = JSON.parse(request.body, {:symbolize_names => true})
+    req = access_token.request(:get, "https://api.twitter.com/1.1/lists/list.json")
+    response = JSON.parse(req.body, {:symbolize_names => true})
 
     # Check if we already have a list
     list = response.find{ |list| list[:slug] == screen_name }
     # Otherwise make one
     if list.nil?
-      request = access_token.request(:post, "https://api.twitter.com/1.1/lists/create.json?name=#{screen_name}&mode=private&description=List%20generated%20by%20Otherside%20for%20Twitter%20https%3A%2F%2Fotherside.site")
-      list = JSON.parse(request.body, {:symbolize_names => true})
+      req = access_token.request(:post, "https://api.twitter.com/1.1/lists/create.json?name=#{screen_name}&mode=private&description=List%20generated%20by%20Otherside%20for%20Twitter%20https%3A%2F%2Fotherside.site")
+      list = JSON.parse(req.body, {:symbolize_names => true})
     end
     
     list_id = list[:id_str]
@@ -113,9 +119,9 @@ post "/create_list" do
     raise "4" if list_id.nil?
 
     # Add our target to the list so we can see their replies
-    request = access_token.request(:post, "https://api.twitter.com/1.1/lists/members/create.json?list_id=#{list_id}&screen_name=#{screen_name}")
+    req = access_token.request(:post, "https://api.twitter.com/1.1/lists/members/create.json?list_id=#{list_id}&screen_name=#{screen_name}")
 
-    raise "5" if request.code != "200"
+    raise "5" if req.code != "200"
 
     # Iterate over the list of accounts
     complete = 0
