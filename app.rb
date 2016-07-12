@@ -66,9 +66,9 @@ get "/add" do
   when "3"
     @error = "<h3>Could not retrieve followed accounts</h3> <p>Does this user have a private account?</p>"
   when "4"
-    @error = "<h3>Could not create list</h3> <p>Twitter imposes a limit on how often third party services can access your account. Please wait 15 minutes then try again.</p>"
+    @error = "<h3>Could not create list</h3> <p>Twitter <a href='https://support.twitter.com/articles/15364'>imposes a limit</a> on <a href='https://support.twitter.com/articles/68916'>aggressive following</a>, and creating multiple large lists. Please wait 15 minutes before trying again.</p>"
   when "5"
-    @error = "<h3>Could not modify list</h3> <p>Twitter imposes a limit on how often third party services can access your account. Please wait 15 minutes then try again.</p>"
+    @error = "<h3>Could not modify list</h3> <p>Twitter <a href='https://support.twitter.com/articles/15364'>imposes a limit</a> on <a href='https://support.twitter.com/articles/68916'>aggressive following</a>, and creating multiple large lists. Please wait 15 minutes before trying again.</p>"
   else
     @error = nil
   end
