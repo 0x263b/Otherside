@@ -6,8 +6,8 @@ require 'oauth'
 require 'omniauth-twitter'
 
 configure do
-  set :sessions, 
-    key: "otherside",
+  use Rack::Session::Cookie, 
+    key: "rack.session",
     path: "/",
     expire_after: 14400,
     secret: "you should probably change this"
