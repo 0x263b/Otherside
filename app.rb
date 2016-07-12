@@ -10,7 +10,7 @@ configure do
     key: "rack.session",
     path: "/",
     expire_after: 14400,
-    secret: "you should probably change this"
+    secret: settings.cookie_secret
 
   use OmniAuth::Builder do
     provider :twitter, settings.twitter_consumer_key, settings.twitter_consumer_secret
