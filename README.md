@@ -1,6 +1,6 @@
 # Otherside for Twitter
 
-[Otherside](https://otherside.site) creates a [Twitter List](https://twitter.com/lists) of the accounts someone follows, letting you to see Twitter from their perspective.
+[Otherside](https://otherside.site) creates a [Twitter List](https://twitter.com/lists) of the accounts someone follows, letting you see Twitter from their perspective.
 
 Inspired by [this post](http://parkerhiggins.net/2015/12/a-twitter-list-of-somebody-elses-timeline/), and [twitter goggles](https://github.com/ardubs/goggles).
 
