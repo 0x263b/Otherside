@@ -18,10 +18,6 @@ configure do
 end
 
 helpers do
-  def h(text)
-    Rack::Utils.escape_html(text)
-  end
-
   def prepare_access_token(oauth_token, oauth_token_secret)
     consumer = OAuth::Consumer.new(settings.twitter_consumer_key, settings.twitter_consumer_secret, {:site => "https://api.twitter.com", :scheme => :header })
     token_hash = { :oauth_token => oauth_token, :oauth_token_secret => oauth_token_secret }
@@ -122,9 +118,7 @@ post "/create_list" do
     raise "5" if req.code != "200"
 
     # Iterate over the list of accounts
-    complete = 0
     ids.each_slice(100) do |slice|
-      complete += slice.length
       user_list = slice.join(",")
 
       access_token.request(:post, "https://api.twitter.com/1.1/lists/members/create_all.json?list_id=#{list_id}&user_id=#{user_list}")
